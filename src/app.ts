@@ -1,12 +1,16 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import { errorMiddleware } from './middlewares/error.middleware';
+
 
 dotenv.config()
 
 const app = express()
 
 app.use(express.json())
+
+app.use(errorMiddleware);
 
 const connectDB = async () => {
 	try {
