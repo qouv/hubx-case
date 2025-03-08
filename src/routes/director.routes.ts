@@ -4,7 +4,7 @@ import { DirectorController } from '../controllers/director.controller'
 const router = Router()
 const directorController = new DirectorController()
 
-router.post('/', directorController.createDirector.bind(directorController))
-router.delete('/:id', directorController.deleteDirector.bind(directorController))
+router.post('/', (req, res, next) => directorController.createDirector(req, res, next))
+router.delete('/:id', (req, res, next) => directorController.deleteDirector(req, res, next))
 
 export default router
