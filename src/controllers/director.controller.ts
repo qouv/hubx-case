@@ -17,4 +17,14 @@ export class DirectorController {
 			next(error)
 		}
 	}
+
+	async deleteDirector(req: Request, res: Response, next: NextFunction): Promise<void> {
+		try {
+			await this.directorService.deleteDirector(req.params.id)
+
+			res.sendStatus(204)
+		} catch (error) {
+			next(error)
+		}
+	}
 }
