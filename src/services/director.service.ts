@@ -23,5 +23,9 @@ export class DirectorService {
 
 	async deleteDirector(id: string): Promise<IDirector | null> {
 		return this.directorRepository.delete(id)
-	  }
+	}
+
+	async getDirectorById(id: string): Promise<IDirector | null> {
+		return this.directorRepository.findById(id);
+	}
 }
