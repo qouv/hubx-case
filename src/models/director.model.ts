@@ -11,12 +11,14 @@ const directorSchema = new Schema<IDirector>({
 	firstName: {
 		type: String,
 		required: [true, 'First name is required'],
-		maxlength: [64, 'First name cannot be more than 64 characters']
+		match: [/^[A-Za-z\s-]{2,50}$/, 'First name must contain only letters, spaces, or hyphens and be 2-50 characters long']
 	},
 	secondName: {
 		type: String,
 		required: [true, 'Second name is required'],
-		maxlength: [64, 'Second name cannot be more than 64 characters']
+		maxlength: [64, 'Second name cannot be more than 64 characters'],
+		match: [/^[A-Za-z\s-]{2,50}$/, 'Second name must contain only letters, spaces, or hyphens and be 2-50 characters long']
+
 	},
 	birthDate: {
 		type: Date,
