@@ -1,5 +1,6 @@
 import { DirectorRepository } from '../repositories/director.repository'
 import { IDirector } from '../models/director.model'
+import { formatName } from '../utils/format.utils'
 
 export class DirectorService {
 	private directorRepository: DirectorRepository;
@@ -9,6 +10,14 @@ export class DirectorService {
 	}
 
 	async createDirector(directorData: Partial<IDirector>): Promise<IDirector> {
-		return this.directorRepository.create(directorData)
+		if (directorData.firstName) {
+			directorData.firstName = formatName(directorData.firstName)
+		}
+
+		if (directorData.secondName) {
+			directorData.secondName = formatName(directorData.secondName)
+		}
+
+		return this.directorRepository.create(directorData);
 	}
 }
