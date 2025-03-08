@@ -5,7 +5,7 @@ export class DirectorController {
 	private directorService: DirectorService;
 
 	constructor() {
-		this.directorService = new DirectorService();
+		this.directorService = new DirectorService()
 	}
 
 	async createDirector(req: Request, res: Response, next: NextFunction): Promise<void> {

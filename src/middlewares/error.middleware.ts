@@ -9,6 +9,6 @@ const errorMiddleware = (
 ): void => {
 	const { message, statusCode, details } = handleError(error)
 	res.status(statusCode).json({ message, details })
-};
+}
 
 export default errorMiddleware

@@ -13,15 +13,15 @@ app.use(express.json())
 
 app.use('/api/directors', directorRoutes.default)
 
-app.use(errorMiddleware.default);
+app.use(errorMiddleware.default)
 
 const connectDB = async () => {
 	try {
-		await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/moviedb');
-		console.log('MongoDB connected');
+		await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/moviedb')
+		console.log('MongoDB connected')
 	} catch (error) {
-		console.error('MongoDB connection error:', error);
-		process.exit(1);
+		console.error('MongoDB connection error:', error)
+		process.exit(1)
 	}
 }
 

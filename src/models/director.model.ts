@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose'
 
 export interface IDirector extends Document {
 	firstName: string;
@@ -38,6 +38,6 @@ const directorSchema = new Schema<IDirector>({
 		required: [true, 'Bio is required'],
 		maxLength: [400, 'Bio cannot be more than 400 characters']
 	},
-}, { timestamps: true });
+}, { timestamps: true })
 
 export const Director = mongoose.model<IDirector>('Director', directorSchema);
