@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { DirectorService } from '../services/director.service'
 
 export class DirectorController {
-	private directorService: DirectorService;
+	private directorService: DirectorService
 
 	constructor() {
 		this.directorService = new DirectorService()
