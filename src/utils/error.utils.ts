@@ -31,7 +31,6 @@ export const handleError = (error: unknown): { message: string; statusCode: numb
 			};
 		}
 
-
 		return {
 			message: error.message,
 			statusCode: 400,
