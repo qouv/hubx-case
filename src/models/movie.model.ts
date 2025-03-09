@@ -22,7 +22,7 @@ const movieSchema = new Schema<IMovie>({
 	imdbId: {
 		type: String,
 		required: true,
-		unique: true,
+		unique: [true, 'IMDB ID must be unique'],
 		match: [/^tt\d{7,10}$/, 'IMDB ID must match the pattern tt followed by 7 to 10 digits']
 	},
 	director: { type: Schema.Types.ObjectId, ref: 'Director', required: true }
