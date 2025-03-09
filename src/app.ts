@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 
 import { errorMiddleware } from './middlewares'
-import { directorRoutes } from './routes'
+import { directorRoutes, movieRoutes } from './routes'
 
 dotenv.config()
 
@@ -12,6 +12,7 @@ const app = express()
 app.use(express.json())
 
 app.use('/api/directors', directorRoutes.default)
+app.use('/api/movies', movieRoutes.default)
 
 app.use(errorMiddleware.default)
 
