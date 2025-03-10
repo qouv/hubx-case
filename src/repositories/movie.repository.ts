@@ -3,6 +3,7 @@ import { Movie, IMovie } from '../models/movie.model'
 export class MovieRepository {
 	async create(movieData: Partial<IMovie>): Promise<IMovie> {
 		const movie = new Movie(movieData)
+
 		return movie.save()
 	}
 
