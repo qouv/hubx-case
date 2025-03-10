@@ -5,6 +5,8 @@ export interface IDirector extends Document {
 	secondName: string;
 	birthDate: Date;
 	bio: string;
+	createdAt?: Date,
+	updatedAt?: Date
 }
 
 const directorSchema = new Schema<IDirector>({
@@ -37,7 +39,7 @@ const directorSchema = new Schema<IDirector>({
 		type: String,
 		required: [true, 'Bio is required'],
 		maxLength: [400, 'Bio cannot be more than 400 characters']
-	},
+	}
 }, { timestamps: true })
 
 export const Director = mongoose.model<IDirector>('Director', directorSchema);
