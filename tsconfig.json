@@ -1,14 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "NodeNext",
-    "outDir": "./build",
-    "rootDir": "./src",
-    "strict": true,
-    "baseUrl": "./src",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node16"
-  }
+	"compilerOptions": {
+		"target": "es2018",
+		"module": "commonjs",
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "tests"]
 }
