@@ -56,13 +56,13 @@ movie-director-api/
 
 ```bash
 # Build and start all services (app, MongoDB, Redis)
-docker-compose up --build
+docker compose up --build
 
 # Run in detached mode
-docker-compose up -d
+docker compose up -d
 
 # Stop all services
-docker-compose down
+docker compose down
 ```
 
 The API will be available at http://localhost:3000
@@ -72,7 +72,7 @@ The API will be available at http://localhost:3000
 1. Start MongoDB and Redis using the development Docker Compose file:
 
 ```bash
-docker-compose -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.dev.yml up -d
 ```
 
 2. Install dependencies:
