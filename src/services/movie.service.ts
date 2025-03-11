@@ -3,6 +3,7 @@ import { DirectorService } from './director.service'
 import { IMovie } from '../models/movie.model'
 import mongoose from 'mongoose'
 import { AppError } from '../utils/error.utils'
+import { formatMovieName } from '../utils/format.utils'
 
 export class MovieService {
 	private movieRepository: MovieRepository
@@ -32,6 +33,10 @@ export class MovieService {
 		if(movieData.director) {
 			// Verify director exists
 			await this.validateDirector(movieData.director?.toString())
+		}
+
+		if(movieData.title) {
+			movieData.title = formatMovieName(movieData.title)
 		}
 
 		return this.movieRepository.create(movieData)
