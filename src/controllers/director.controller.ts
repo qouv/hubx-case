@@ -10,9 +10,9 @@ export class DirectorController {
 
 	async createDirector(req: Request, res: Response, next: NextFunction): Promise<void> {
 		try {
-			await this.directorService.createDirector(req.body)
+			const director = await this.directorService.createDirector(req.body)
 
-			res.sendStatus(201)
+			res.status(201).json(director)
 		} catch (error) {
 			next(error)
 		}
