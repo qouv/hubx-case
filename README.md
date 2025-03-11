@@ -181,14 +181,14 @@ The API utilizes Redis for caching frequently accessed endpoints to reduce datab
 
 1. **Connection errors to MongoDB or Redis:**
    - Ensure containers are running: `docker ps`
-   - Check logs: `docker-compose logs mongodb` or `docker-compose logs redis`
+   - Check logs: `docker compose logs mongodb` or `docker compose logs redis`
 
 2. **API not starting:**
-   - Check the logs: `docker-compose logs app`
+   - Check the logs: `docker compose logs app`
    - Verify environment variables are correctly set
 
 3. **Changes not reflecting in Docker environment:**
-   - Rebuild the container: `docker-compose up --build`
+   - Rebuild the container: `docker compose up --build`
 
 ## License
 
