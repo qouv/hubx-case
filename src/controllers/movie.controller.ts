@@ -10,8 +10,9 @@ export class MovieController {
 
 	async createMovie(req: Request, res: Response, next: NextFunction): Promise<void> {
 		try {
-			await this.movieService.createMovie(req.body)
-			res.status(201).json()
+			const movie = await this.movieService.createMovie(req.body)
+
+			res.status(201).json(movie)
 		} catch (error) {
 			next(error)
 		}
@@ -36,7 +37,7 @@ export class MovieController {
 				return
 			}
 
-			res.status(200).json()
+			res.status(200).json(movie)
 		} catch (error) {
 			next(error)
 		}
