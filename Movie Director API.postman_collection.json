@@ -1,0 +1,719 @@
+{
+	"info": {
+		"_postman_id": "372ac018-1493-4d63-887e-5c2d065dafc9",
+		"name": "Movie Director API",
+		"description": "This API allows managing movie and director data with basic CRUD operations. It supports creating, retrieving, updating, and deleting movies, as well as creating and deleting directors.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24164485"
+	},
+	"item": [
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Create Movie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"In Bruges\",\n    \"description\": \"After a job gone wrong, two hitmen are ordered to lay low in Bruges, Belgium, but one of them hates the city while the other finds it fascinating.\",\n    \"releaseDate\": \"2008-02-08\",\n    \"genre\": [\"Comedy\", \"Drama\"],\n    \"rating\": 7.9,\n    \"imdbId\": \"tt0780536\",\n    \"director\": \"{{directorId}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/movies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							]
+						},
+						"description": "Creates a new movie with the provided details. The director ID must be a valid MongoDB ObjectId that corresponds to an existing director in the database.\n\n## Request Body\n\nThe request body must be a JSON object containing the following fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| title | String | Yes | The title of the movie. |\n| description | String | Yes | A brief description of the movie. |\n| releaseDate | Date | Yes | The official release date of the movie (ISO 8601 format). |\n| genre | Array | Yes | An array of genres from the predefined list: `['Action', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Mystery', 'Romance', 'Thriller', 'Western']`. |\n| rating | Number | Yes | The movie rating on a scale of 0 to 10. |\n| imdbId | String | Yes | A unique IMDB ID following the pattern `tt` followed by 7 to 10 digits (e.g., `tt1234567`). |\n| director | String | Yes | The ObjectId reference to a Director entity. |"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"In Bruges\",\n    \"description\": \"After a job gone wrong, two hitmen are ordered to lay low in Bruges, Belgium, but one of them hates the city while the other finds it fascinating.\",\n    \"releaseDate\": \"2008-02-08\",\n    \"genre\": [\"Comedy\", \"Drama\"],\n    \"rating\": 7.9,\n    \"imdbId\": \"tt0780536\",\n    \"director\": \"60d21b4967d0d8992e610c85\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/movies",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"movies"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"60d21b5f67d0d8992e610c86\",\n    \"title\": \"In Bruges\",\n    \"description\": \"After a job gone wrong, two hitmen are ordered to lay low in Bruges, Belgium, but one of them hates the city while the other finds it fascinating.\",\n    \"releaseDate\": \"2008-02-08T00:00:00.000Z\",\n    \"genre\": [\"Comedy\", \"Drama\"],\n    \"rating\": 7.9,\n    \"imdbId\": \"tt0780536\",\n    \"director\": \"60d21b4967d0d8992e610c85\",\n    \"createdAt\": \"2023-03-09T15:14:55.190Z\",\n    \"updatedAt\": \"2023-03-09T15:14:55.190Z\"\n}"
+						},
+						{
+							"name": "Error - Director Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"In Bruges\",\n    \"description\": \"After a job gone wrong, two hitmen are ordered to lay low in Bruges, Belgium, but one of them hates the city while the other finds it fascinating.\",\n    \"releaseDate\": \"2008-02-08\",\n    \"genre\": [\"Comedy\", \"Crime\", \"Drama\"],\n    \"rating\": 7.9,\n    \"imdbId\": \"tt0780536\",\n    \"director\": \"60d21b4967d0d8992e610c98\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movies"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Director not found\"\n}"
+						},
+						{
+							"name": "Invalid Input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"In Bruges\",\n    \"description\": \"After a job gone wrong, two hitmen are ordered to lay low in Bruges, Belgium, but one of them hates the city while the other finds it fascinating.\",\n    \"releaseDate\": \"2008-02-08\",\n    \"genre\": [\"Comedy\", \"Drama\"],\n    \"director\": \"{{directorId}}\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movies"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation failed\",\n    \"details\": {\n        \"director\": \"Cast to ObjectId failed for value \\\"\\\" (type string) at path \\\"director\\\" because of \\\"BSONError\\\"\",\n        \"imdbId\": \"IMDB ID is required\",\n        \"rating\": \"Rating is required\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/movies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							]
+						},
+						"description": "Retrieves all movies from the database, including their director information."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/movies",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"movies"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"60d21b5f67d0d8992e610c86\",\n        \"title\": \"In Bruges\",\n        \"description\": \"After a job gone wrong, two hitmen are ordered to lay low in Bruges, Belgium, but one of them hates the city while the other finds it fascinating.\",\n        \"releaseDate\": \"2008-02-08T00:00:00.000Z\",\n        \"genre\": [\"Comedy\", \"Drama\"],\n        \"rating\": 7.9,\n        \"imdbId\": \"tt0780536\",\n        \"director\": {\n            \"_id\": \"60d21b4967d0d8992e610c85\",\n            \"firstName\": \"Martin\",\n            \"secondName\": \"McDonagh\",\n            \"birthDate\": \"1970-03-26T00:00:00.000Z\",\n            \"bio\": \"British-Irish playwright, screenwriter, and director known for his dark comedies\",\n            \"createdAt\": \"2023-03-09T15:14:33.190Z\",\n            \"updatedAt\": \"2023-03-09T15:14:33.190Z\"\n        },\n        \"createdAt\": \"2023-03-09T15:14:55.190Z\",\n        \"updatedAt\": \"2023-03-09T15:14:55.190Z\"\n    },\n    {\n        \"_id\": \"60d21c5f67d0d8992e610c87\",\n        \"title\": \"Three Billboards Outside Ebbing, Missouri\",\n        \"description\": \"A mother challenges the local authorities to solve her daughter's murder when they fail to catch the culprit.\",\n        \"releaseDate\": \"2017-11-10T00:00:00.000Z\",\n        \"genre\": [\"Comedy\", \"Drama\"],\n        \"rating\": 8.2,\n        \"imdbId\": \"tt5027774\",\n        \"director\": {\n            \"_id\": \"60d21b4967d0d8992e610c85\",\n            \"firstName\": \"Martin\",\n            \"secondName\": \"McDonagh\",\n            \"birthDate\": \"1970-03-26T00:00:00.000Z\",\n            \"bio\": \"British-Irish playwright, screenwriter, and director known for his dark comedies\",\n            \"createdAt\": \"2023-03-09T15:14:33.190Z\",\n            \"updatedAt\": \"2023-03-09T15:14:33.190Z\"\n        },\n        \"createdAt\": \"2023-03-09T15:18:55.190Z\",\n        \"updatedAt\": \"2023-03-09T15:18:55.190Z\"\n    }\n]"
+						},
+						{
+							"name": "Empty Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/movies",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movies"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						}
+					]
+				},
+				{
+					"name": "Update Movie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\": 8.1,\n    \"description\": \"After a botched job in London, hitmen Ray and Ken are ordered by their boss Harry to lay low in Bruges, Belgium, until the heat dies down. While Ken falls in love with the medieval city, Ray finds it boring and claustrophobic.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/movies/{{movieId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"{{movieId}}"
+							]
+						},
+						"description": "Updates an existing movie by ID. Only the fields provided in the request body will be updated.\n\n## Request Body\n\nThe request body must have at least one of fields in a JSON object:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| title | String | Yes | The title of the movie. |\n| description | String | Yes | A brief description of the movie. |\n| releaseDate | Date | Yes | The official release date of the movie (ISO 8601 format). |\n| genre | Array | Yes | An array of genres from the predefined list: `['Action', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Mystery', 'Romance', 'Thriller', 'Western']`. |\n| rating | Number | Yes | The movie rating on a scale of 0 to 10. |\n| imdbId | String | Yes | A unique IMDB ID following the pattern `tt` followed by 7 to 10 digits (e.g., `tt1234567`). |\n| director | String | Yes | The ObjectId reference to a Director entity. |"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"rating\": 8.1,\n    \"description\": \"After a botched job in London, hitmen Ray and Ken are ordered by their boss Harry to lay low in Bruges, Belgium, until the heat dies down. While Ken falls in love with the medieval city, Ray finds it boring and claustrophobic.\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/movies/60d21b5f67d0d8992e610c86",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"movies",
+										"60d21b5f67d0d8992e610c86"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"60d21b5f67d0d8992e610c86\",\n    \"title\": \"In Bruges\",\n    \"description\": \"After a botched job in London, hitmen Ray and Ken are ordered by their boss Harry to lay low in Bruges, Belgium, until the heat dies down. While Ken falls in love with the medieval city, Ray finds it boring and claustrophobic.\",\n    \"releaseDate\": \"2008-02-08T00:00:00.000Z\",\n    \"genre\": [\"Comedy\", \"Drama\"],\n    \"rating\": 8.1,\n    \"imdbId\": \"tt0780536\",\n    \"director\": {\n        \"_id\": \"60d21b4967d0d8992e610c85\",\n        \"firstName\": \"Martin\",\n        \"secondName\": \"McDonagh\",\n        \"birthDate\": \"1970-03-26T00:00:00.000Z\",\n        \"bio\": \"British-Irish playwright, screenwriter, and director known for his dark comedies\",\n        \"createdAt\": \"2023-03-09T15:14:33.190Z\",\n        \"updatedAt\": \"2023-03-09T15:14:33.190Z\"\n    },\n    \"createdAt\": \"2023-03-09T15:14:55.190Z\",\n    \"updatedAt\": \"2023-03-09T15:26:12.190Z\"\n}"
+						},
+						{
+							"name": "Error - Movie Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"rating\": 8.1,\n    \"description\": \"Updated description\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/movies/60d21b5f67d0d8992e610c99",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movies",
+										"60d21b5f67d0d8992e610c99"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Movie not found\"\n}"
+						},
+						{
+							"name": "Error - Invalid Input",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"rating\": 12.5\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/movies/60d21b5f67d0d8992e610c86",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movies",
+										"60d21b5f67d0d8992e610c86"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"error\",\n    \"errors\": [\n        {\n            \"path\": \"rating\",\n            \"message\": \"Rating must be between 0 and 10\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Update Movie",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"rating\": 8.1,\n    \"description\": \"After a botched job in London, hitmen Ray and Ken are ordered by their boss Harry to lay low in Bruges, Belgium, until the heat dies down. While Ken falls in love with the medieval city, Ray finds it boring and claustrophobic.\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/movies/{{movieId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movies",
+										"{{movieId}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Delete Movie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/movies/{{movieId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"{{movieId}}"
+							]
+						},
+						"description": "Deletes a movie by ID."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/movies/60d21b5f67d0d8992e610c86",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"movies",
+										"60d21b5f67d0d8992e610c86"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"60d21b5f67d0d8992e610c86\",\n    \"title\": \"In Bruges\",\n    \"description\": \"After a botched job in London, hitmen Ray and Ken are ordered by their boss Harry to lay low in Bruges, Belgium, until the heat dies down. While Ken falls in love with the medieval city, Ray finds it boring and claustrophobic.\",\n    \"releaseDate\": \"2008-02-08T00:00:00.000Z\",\n    \"genre\": [\"Comedy\", \"Drama\"],\n    \"rating\": 8.1,\n    \"imdbId\": \"tt0780536\",\n    \"director\": \"60d21b4967d0d8992e610c85\",\n    \"createdAt\": \"2023-03-09T15:14:55.190Z\",\n    \"updatedAt\": \"2023-03-09T15:26:12.190Z\"\n}"
+						},
+						{
+							"name": "Error - Movie Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/movies/60d21b5f67d0d8992e610c99",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"movies",
+										"60d21b5f67d0d8992e610c99"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Movie not found\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints for managing movie data."
+		},
+		{
+			"name": "Directors",
+			"item": [
+				{
+					"name": "Create Director",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Martin\",\n    \"secondName\": \"McDonagh\",\n    \"birthDate\": \"1970-03-26\",\n    \"bio\": \"British-Irish playwright, screenwriter, and director known for his dark comedies\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/directors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"directors"
+							]
+						},
+						"description": "Creates a new director with the provided details.\n\nThe request body must be a JSON object containing the following fields:\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| firstName | String | Yes | The first name of the director. It must contain only letters, spaces, or hyphens and be 2-50 characters long. |\n| secondName | String | Yes | The second name of the director. It must contain only letters, spaces, or hyphens and be 2-64 characters long. |\n| birthDate | Date | Yes | The director's birth date. It must not be in the future. |\n| bio | String | Yes | A brief biography of the director (max 400 characters). |"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Martin\",\n    \"secondName\": \"McDonagh\",\n    \"birthDate\": \"1970-03-26\",\n    \"bio\": \"British-Irish playwright, screenwriter, and director known for his dark comedies\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/directors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"directors"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"60d21b4967d0d8992e610c85\",\n    \"firstName\": \"Martin\",\n    \"secondName\": \"McDonagh\",\n    \"birthDate\": \"1970-03-26T00:00:00.000Z\",\n    \"bio\": \"British-Irish playwright, screenwriter, and director known for his dark comedies\",\n    \"createdAt\": \"2023-03-09T15:14:33.190Z\",\n    \"updatedAt\": \"2023-03-09T15:14:33.190Z\"\n}"
+						},
+						{
+							"name": "Error - Invalid Input",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\": \"Martin\",\n    \"secondName\": \"McDonagh\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/directors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"directors"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation failed\",\n    \"details\": {\n        \"bio\": \"Bio is required\",\n        \"birthDate\": \"Birth date is required\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Director",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/directors/{{directorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"directors",
+								"{{directorId}}"
+							]
+						},
+						"description": "Deletes a director by ID."
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/directors/60d21b4967d0d8992e610c85",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"directors",
+										"60d21b4967d0d8992e610c85"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"60d21b4967d0d8992e610c85\",\n    \"firstName\": \"Martin\",\n    \"secondName\": \"McDonagh\",\n    \"birthDate\": \"1970-03-26T00:00:00.000Z\",\n    \"bio\": \"British-Irish playwright, screenwriter, and director known for his dark comedies\",\n    \"createdAt\": \"2023-03-09T15:14:33.190Z\",\n    \"updatedAt\": \"2023-03-09T15:14:33.190Z\"\n}"
+						},
+						{
+							"name": "Error - Director Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/directors/60d21b4967d0d8992e610c99",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"directors",
+										"60d21b4967d0d8992e610c99"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Director not found\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Endpoints for managing director data."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "directorId",
+			"value": "your-director-id",
+			"type": "string"
+		},
+		{
+			"key": "movieId",
+			"value": "your-movie-id",
+			"type": "string"
+		}
+	]
+}
