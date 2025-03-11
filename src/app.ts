@@ -5,6 +5,8 @@ import dotenv from 'dotenv'
 import { errorMiddleware } from './middlewares'
 import { directorRoutes, movieRoutes } from './routes'
 
+import { connectRedis } from './config/redis'
+
 dotenv.config()
 
 const app = express()
@@ -26,7 +28,12 @@ const connectDB = async () => {
 	}
 }
 
-export { app, connectDB }
+const initialize = async () => {
+	await connectDB()
+	await connectRedis()
+}
+
+export { app, initialize }
 
 
 

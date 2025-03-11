@@ -16,10 +16,13 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "mongoose": "^8.12.1"
+    "ioredis": "^5.6.0",
+    "mongoose": "^8.12.1",
+    "redis": "^4.7.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
+    "@types/ioredis": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.13.10",
